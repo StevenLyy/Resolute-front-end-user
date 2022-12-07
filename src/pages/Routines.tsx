@@ -1,7 +1,7 @@
 import {RoutineType} from "../types/RoutineType";
 import {useEffect, useState} from "react";
 import userService from "../services/userService";
-import '../Style/Card.css'
+import '../style/Card.css'
 import {useParams} from "react-router-dom";
 
 

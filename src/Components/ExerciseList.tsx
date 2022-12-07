@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import '../Style/Card.css'
+import '../style/Card.css'
 import exerciseService from "../services/exerciseService";
 import {ExerciseType} from "../types/ExerciseType";
 import {MuscleGroupType} from "../types/MuscleGroupType";

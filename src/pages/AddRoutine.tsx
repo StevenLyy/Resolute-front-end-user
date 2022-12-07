@@ -4,7 +4,7 @@ import {RoutineType} from "../types/RoutineType";
 import {useNavigate} from "react-router-dom";
 import {ExerciseType} from "../types/ExerciseType";
 import exerciseService from "../services/exerciseService";
-import "../Style/Card.css"
+import "../style/Card.css"
 
 
 const AddRoutine = () => {
@@ -18,7 +18,7 @@ const AddRoutine = () => {
     const [selectedExercises, setSelectedExercises] = useState<ExerciseType[]>([]);
 
     useEffect(() => {
-        exerciseService.getExercises().then((res:any) => {
+        exerciseService.getExercises().then((res) => {
             setExercises(res.data);
         });
     }, []);
@@ -28,19 +28,40 @@ const AddRoutine = () => {
         e.preventDefault();
 
         const newRoutine : RoutineType = {name: routineName, version: routineVersion};
-        routineService.addRoutine(newRoutine).then((w) => {
+        routineService.addRoutine(newRoutine).then((routine) => {
             for(let i = 0; i < selectedExercises.length; i++){
-                routineService.addExerciseToRoutine(w.data.id, Number(selectedExercises[i].id), {sets: 3, reps: 10});
+                routineService.addExerciseToRoutine(routine.data.id, Number(selectedExercises[i].id), {sets: 3, reps: 10});
             }
             console.log("Routine added");
         });
     }
 
     function addSelectedExercise(exercise: ExerciseType) {
-        if(selectedExercises.includes(exercise)) {return;}
-        const test = [];
-        test.push(exercise);
+        if(selectedExercises.includes(exercise)){
+            setSelectedExercises(selectedExercises.filter((e) => e !== exercise));
+            return;
+        }
         setSelectedExercises([...selectedExercises, exercise]);
+    }
+    const renderExercise = () => {
+        const determineSelected = (s: ExerciseType) => {
+            const isIncluded = selectedExercises.includes(s);
+            switch(isIncluded){
+                case true:
+                    return "cardClickable selected";
+            }
+            return "cardClickable unselected";
+        }
+
+        return(
+        exercises.map((exercise:ExerciseType) => (
+            <div key={exercise.id} onClick={() => addSelectedExercise(exercise)}
+                 className={determineSelected(exercise)}>
+                <label className="cardName">{exercise.name}</label>
+                <br/>
+                <label className="cardDetails">{exercise.details}</label>
+            </div>
+        )))
     }
 
     return (
@@ -52,16 +73,9 @@ const AddRoutine = () => {
                     <input id="routineInput" type="text" value={routineName}
                            onChange={(e) => {setRoutineName(e.target.value)}} required/>
                 </div>
-                <div className="cardContainer">{
-                    exercises.map((e:ExerciseType) => (
-                        <div onClick={() => addSelectedExercise(e)} className="cardClickable">
-                            {e.name}
-                        </div>
-                    ))}</div>
-                <div>
+                <div className="cardContainer">{renderExercise()}</div>
                     <button disabled={ !routineName }
                         type={"submit"} onClick={saveRoutine}>Save routine</button>
-                </div>
             </form>
 
             <button onClick={() => console.log(selectedExercises)}>Test selected in console</button>
