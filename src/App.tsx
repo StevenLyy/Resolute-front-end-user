@@ -4,6 +4,7 @@ import './style/App.css';
 import ExerciseList from "./Components/ExerciseList";
 import AddRoutine from "./pages/AddRoutine";
 import Routines from "./pages/Routines";
+import Login from "./Components/Login";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
           <div className="App">
               <header/>
               <Routes>
-                  <Route path='/' element={<ExerciseList/>}/>
+                  <Route path='/login' element={<Login/>}/>
                   <Route path='/routines/add' element={<AddRoutine/>}/>
                   <Route path='/routines/:id' element={<Routines/>}/>
               </Routes>

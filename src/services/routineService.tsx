@@ -25,7 +25,6 @@ const deleteRoutine = (id: number) => {
 }
 
 const addExerciseToRoutine = (routineId: number, exerciseId: number, SetsRepsDTO: setsRepsType) => {
-    console.log(SetsRepsDTO);
     return axiosInstance.post(url + routineId + "/exercises/" + exerciseId, SetsRepsDTO);
 }
 

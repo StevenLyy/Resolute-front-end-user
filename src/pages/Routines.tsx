@@ -1,5 +1,5 @@
 import {RoutineType} from "../types/RoutineType";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import userService from "../services/userService";
 import '../style/Card.css'
 import {useParams} from "react-router-dom";

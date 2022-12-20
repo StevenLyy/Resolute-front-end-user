@@ -52,10 +52,13 @@ const AddRoutine = () => {
             }
             return "cardClickable unselected";
         }
+        function test(){
+            console.log("test");
+        }
 
         return(
         exercises.map((exercise:ExerciseType) => (
-            <div key={exercise.id} onClick={() => addSelectedExercise(exercise)}
+            <div key={exercise.id} onDoubleClick={test} onClick={() => addSelectedExercise(exercise)}
                  className={determineSelected(exercise)}>
                 <label className="cardName">{exercise.name}</label>
                 <br/>
