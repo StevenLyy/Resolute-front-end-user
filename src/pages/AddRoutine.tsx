@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {ExerciseType} from "../types/ExerciseType";
 import exerciseService from "../services/exerciseService";
 import "../style/Card.css"
+import LogoutBtn from "../Components/LogoutBtn";
 
 
 const AddRoutine = () => {
@@ -52,13 +53,10 @@ const AddRoutine = () => {
             }
             return "cardClickable unselected";
         }
-        function test(){
-            console.log("test");
-        }
 
         return(
         exercises.map((exercise:ExerciseType) => (
-            <div key={exercise.id} onDoubleClick={test} onClick={() => addSelectedExercise(exercise)}
+            <div key={exercise.id} onClick={() => addSelectedExercise(exercise)}
                  className={determineSelected(exercise)}>
                 <label className="cardName">{exercise.name}</label>
                 <br/>
@@ -80,8 +78,7 @@ const AddRoutine = () => {
                     <button disabled={ !routineName }
                         type={"submit"} onClick={saveRoutine}>Save routine</button>
             </form>
-
-            <button onClick={() => console.log(selectedExercises)}>Test selected in console</button>
+            <LogoutBtn/>
         </div>
     );
 }

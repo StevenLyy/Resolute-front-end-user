@@ -16,6 +16,7 @@ function App() {
           <div className="App">
               <header/>
               <Routes>
+                  <Route path="/" element={<Login/>}/>
                   <Route path='/login' element={<Login/>}/>
                   <Route path='/routines/add' element={<AddRoutine/>}/>
                   <Route path='/routines/:id' element={<Routines/>}/>

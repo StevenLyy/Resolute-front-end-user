@@ -1,17 +1,14 @@
 import React, {useState} from 'react';
-import {useLocalState} from "../Hooks/useLocalState";
 import authService from "../services/authService";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const [jwt, setJwt] = useLocalState("jwt", "");
     function sendLoginRequest(){
         authService.login(username, password).then((res) => {
-            console.log(res);
             if(res.status === 200){
-                setJwt(res.headers["Authorization"]);
+                localStorage.setItem("Token", res.data.token);
                 return Promise.resolve(res.data);
             }
             else{
@@ -25,16 +22,15 @@ const Login = () => {
 
     return(
         <>
-            <div>
-                <label htmlFor="username">Username:</label>
+            <div className="login-form">
+                <form>
+                <h1>Login</h1>
                 <input
                     type="text"
                     placeholder="Username"
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}/>
-            </div>
-            <div>
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
@@ -42,11 +38,9 @@ const Login = () => {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword((e.target.value))}/>
-            </div>
-            <div>
                 <button onClick={() => sendLoginRequest()}>Login</button>
+                </form>
             </div>
-            <button onClick={() => {console.log(jwt)}}></button>
         </>
     )
 }
