@@ -5,12 +5,10 @@ import {useNavigate} from "react-router-dom";
 import {ExerciseType} from "../types/ExerciseType";
 import exerciseService from "../services/exerciseService";
 import "../style/Card.css"
-import LogoutBtn from "../Components/LogoutBtn";
+import userService from "../services/userService";
 
 
 const AddRoutine = () => {
-    const navigate = useNavigate();
-
     const [routineName, setRoutineName] = useState("");
     const [routineVersion, setRoutineVersion] = useState(1);
     // exercises are the exercises that are fetched from the database
@@ -33,7 +31,9 @@ const AddRoutine = () => {
             for(let i = 0; i < selectedExercises.length; i++){
                 routineService.addExerciseToRoutine(routine.data.id, Number(selectedExercises[i].id), {sets: 3, reps: 10});
             }
+            userService.addRoutineToUser(Number(localStorage.getItem("id")), routine.data.id);
             console.log("Routine added");
+            alert("Routine added");
         });
     }
 
@@ -50,8 +50,9 @@ const AddRoutine = () => {
             switch(isIncluded){
                 case true:
                     return "cardClickable selected";
+                case false:
+                    return "cardClickable unselected";
             }
-            return "cardClickable unselected";
         }
 
         return(
@@ -67,6 +68,7 @@ const AddRoutine = () => {
 
     return (
         <div className='container'>
+            <h1>{localStorage.getItem("username")}</h1>
             <p className='title'>Add a Routine</p>
             <form>
                 <div>
@@ -78,7 +80,6 @@ const AddRoutine = () => {
                     <button disabled={ !routineName }
                         type={"submit"} onClick={saveRoutine}>Save routine</button>
             </form>
-            <LogoutBtn/>
         </div>
     );
 }

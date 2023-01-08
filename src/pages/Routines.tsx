@@ -7,7 +7,6 @@ import {useParams} from "react-router-dom";
 
 const Routines = () => {
     const {id} = useParams();
-    const [username, setUsername] = useState("");
     const [routines, setRoutines] = useState<RoutineType[]>([]);
 
     useEffect(() => {
@@ -20,17 +19,16 @@ const Routines = () => {
 
     return (
         <div className='container'>
-            <p className='title'>Routines of {username}</p>
+            <h1 className='title'>Routines of {localStorage.getItem("fullName")}</h1>
             <div className='routine-list'>
                 {routines.map((routine:RoutineType) => (
                     <div key={routine.id} className='grid'>
-                        <h2>{routine.name}</h2>
-                        <h2>version {routine.version}</h2>
+                        <p>{routine.name}</p>
+                        <p>version {routine.version}</p>
                     </div>)
                 )}
             </div>
-
-            <button onClick={() => {window.history.back()}}>Back</button>
+            <a href={"/routines/add"}>Create a new routine</a>
         </div>
     );
 }
