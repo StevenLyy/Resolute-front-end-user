@@ -9,6 +9,10 @@ const Login = () => {
     function sendLoginRequest(event: FormEvent) {
         event.preventDefault();
         authService.login(username, password).then((res) => {
+            if(res.data.user.authorities[0].authority !== "ROLE_USER"){
+                alert("You are not a user");
+                return;
+            }
             if (res.status === 200) {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("id", res.data.user.id);
@@ -33,8 +37,8 @@ const Login = () => {
                     <label htmlFor="username">Username: </label>
                     <input
                         required={true}
-                        type="text"
-                        placeholder="Username"
+                        type="username"
+                        placeholder="username"
                         id="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}/>
@@ -43,13 +47,13 @@ const Login = () => {
                     <input
                         required={true}
                         type="password"
-                        placeholder="Password"
+                        placeholder="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword((e.target.value))}/>
                     <br/>
                     <br/>
-                    <button>Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
         </div>
     )

@@ -32,8 +32,8 @@ const AddRoutine = () => {
                 routineService.addExerciseToRoutine(routine.data.id, Number(selectedExercises[i].id), {sets: 3, reps: 10});
             }
             userService.addRoutineToUser(Number(localStorage.getItem("id")), routine.data.id);
-            console.log("Routine added");
-            alert("Routine added");
+            alert("Routine created");
+            window.location.href = "/routines/"+localStorage.getItem("id");
         });
     }
 
@@ -68,7 +68,6 @@ const AddRoutine = () => {
 
     return (
         <div className='container'>
-            <h1>{localStorage.getItem("username")}</h1>
             <p className='title'>Add a Routine</p>
             <form>
                 <div>
