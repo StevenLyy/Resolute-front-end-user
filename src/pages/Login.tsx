@@ -17,7 +17,7 @@ const Login = () => {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("id", res.data.user.id);
                 localStorage.setItem("fullName", res.data.user.fullName);
-                window.location.href = "/routines/" + localStorage.getItem("id");
+                window.location.href = "/user/" + localStorage.getItem("id");
                 return Promise.resolve(res.data.token);
             } else {
                 return Promise.reject();

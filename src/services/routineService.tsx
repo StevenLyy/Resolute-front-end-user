@@ -16,6 +16,11 @@ const addRoutine = (routine: RoutineType) => {
     return axiosInstance.post(url, routine);
 }
 
+const findRoutineById = (id : number) => {
+    return axiosInstance.get(url + id);
+}
+
+
 const updateRoutine = (routine: RoutineType) => {
     return axiosInstance.put(url, routine);
 }
@@ -31,6 +36,7 @@ const addExerciseToRoutine = (routineId: number, exerciseId: number, SetsRepsDTO
 export default{
     getAllRoutines,
     addRoutine,
+    findRoutineById,
     updateRoutine,
     deleteRoutine,
     addExerciseToRoutine

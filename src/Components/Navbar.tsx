@@ -13,10 +13,6 @@ const Navbar = () => {
                 <NavLink to="/" className="site-title">Homepage</NavLink>
                 <ul>
                     <li>
-                        <NavLink to="/exercises" className={({isActive}) => isActive ? "active" : undefined}>
-                            Our exercises</NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/login" className={({isActive}) => isActive ? "active" : undefined}>Login</NavLink>
                     </li>
                 </ul>
@@ -29,11 +25,7 @@ const Navbar = () => {
                 <NavLink to="/" className="site-title">Homepage</NavLink>
                 <ul>
                     <li>
-                        <NavLink to="/exercises" className={({isActive}) => isActive ? "active" : undefined}>
-                            Our exercises</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to={"/routines/"+localStorage.getItem('id')} className={({isActive}) => isActive ? "active" : undefined}>
+                        <NavLink to={"/user/"+localStorage.getItem('id')} className={({isActive}) => isActive ? "active" : undefined}>
                             My routines
                         </NavLink>
                     </li>

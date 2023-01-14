@@ -5,4 +5,6 @@ export type ExerciseType = {
     name: string;
     details: string;
     musclegroups : MuscleGroupType[];
+    sets?: number;
+    reps?: number;
 }
