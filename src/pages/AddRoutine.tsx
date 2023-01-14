@@ -33,7 +33,7 @@ const AddRoutine = () => {
             }
             userService.addRoutineToUser(Number(localStorage.getItem("id")), routine.data.id);
             alert("Routine created");
-            window.location.href = "/routines/"+localStorage.getItem("id");
+            window.location.href = "/user/"+localStorage.getItem("id");
         });
     }
 

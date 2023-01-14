@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
-import "../style/Chatroom.module.css";
+import "../style/Chatroom.css";
 
 var stompClient: any = null;
 
@@ -10,7 +10,7 @@ const Chatroom = () => {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [tab, setTab] = useState("CHATROOM");
     const [userData, setUserData] = useState({
-        username: "",
+        username: String(localStorage.getItem("fullName")),
         receiverName: "",
         connected: false,
         message: ""
@@ -105,7 +105,7 @@ const Chatroom = () => {
     }
 
     return (
-        <div className="container">
+        <div className="chat-container">
             {
                 userData.connected ?
                     <div className="chat-box">
@@ -123,10 +123,10 @@ const Chatroom = () => {
                             <ul className="chat-messages">
                                 {
                                     publicChats.map((chat:any, index: number)=>(
-                                        <li className='member' key={index}>
+                                        <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
                                             {chat.senderName !== userData.username &&  <div className="avatar">{chat.senderName}</div>}
                                             <div className="message">{chat.message}</div>
-                                            {chat.senderName !== userData.username &&  <div className="avatar self">{chat.senderName}</div>}
+                                            {chat.senderName === userData.username &&  <div className="avatar self">{chat.senderName}</div>}
                                         </li>
                                     ))}
                             </ul>
@@ -139,11 +139,11 @@ const Chatroom = () => {
                         { tab !== "CHATROOM" && <div className="chat-content">
                             <ul className="chat-messages">
                                 {
-                                    [...publicChats.get(tab)].map((chat:any, index: number)=>(
-                                        <li className='member' key={index}>
+                                    [...privateChats.get(tab)].map((chat:any, index: number)=>(
+                                        <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
                                             {chat.senderName !== userData.username &&  <div className="avatar">{chat.senderName}</div>}
                                             <div className="message">{chat.message}</div>
-                                            {chat.senderName !== userData.username &&  <div className="avatar self">{chat.senderName}</div>}
+                                            {chat.senderName === userData.username &&  <div className="avatar self">{chat.senderName}</div>}
                                         </li>
                                     ))}
                             </ul>

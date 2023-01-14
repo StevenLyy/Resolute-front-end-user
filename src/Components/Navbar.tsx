@@ -13,6 +13,9 @@ const Navbar = () => {
                 <NavLink to="/" className="site-title">Homepage</NavLink>
                 <ul>
                     <li>
+                        <NavLink to="/chatroom" className={({isActive}) => isActive ? "active" : undefined}>Chatroom</NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/login" className={({isActive}) => isActive ? "active" : undefined}>Login</NavLink>
                     </li>
                 </ul>
@@ -24,6 +27,9 @@ const Navbar = () => {
             <nav className="nav">
                 <NavLink to="/" className="site-title">Homepage</NavLink>
                 <ul>
+                    <li>
+                        <NavLink to="/chatroom" className={({isActive}) => isActive ? "active" : undefined}>Chatroom</NavLink>
+                    </li>
                     <li>
                         <NavLink to={"/user/"+localStorage.getItem('id')} className={({isActive}) => isActive ? "active" : undefined}>
                             My routines
